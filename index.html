@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+		<link rel="stylesheet" type="text/css" href="leaflet/leaflet.css" />
+		<link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet" />
+		
+		<script src="leaflet/leaflet.js"></script>
+		<script src="https://unpkg.com/mqtt@4.1.0/dist/mqtt.min.js"></script>
+		<script src="scripts.js"></script>
+		<script>
+			window.onload = function() {
+				map = L.map('map').setView([-1.2747, 36.8114], 14);			
+				L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+				    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				}).addTo(map);
+				
+				init_polyline();
+				
+				//reset input text field (drop down search box)
+				document.getElementById("customer-search-box").value = "";
+				
+				//set a timer to track idle time
+				window.setInterval(CheckIdleTime, 60*1000);
+			}
+		</script>
+		
+	</head>
+	
+	<body>
+		<div id="dashboard-wrapper" style="display:initial">
+			<div class="container header">
+				<div class="header-elem left-header">
+					<h1><a id="logout-button" href="#"><img src="imgs/logout-white.svg" width="20px"/></a>&nbsp;&nbsp;<span id="welcome_div"></span></h1>
+					Time: <span id="timestamp"></span>
+				</div>
+				
+				<div class="header-elem right-header">
+					<div id="aicare-logo-container">
+						<img id="aicare-logo" src="aicare-logo.png"/>
+					</div>
+				</div>
+				
+			</div>
+			
+			<div class="container real-time">
+			
+				<div class="identity">
+					<input type="text" placeholder="Enter name or number plate.." id="customer-search-box" class="identity-data" onkeyup="filterFunction()"/>
+					<br>
+					<div id="cust-search-dropdown" class="dropdown-content hidden"></div>
+					Policy holder: <span id="policy_holder" class="identity-data"></span>
+					<br>
+					Vehicle: <span id="vehicle_make" class="identity-data"></span>
+					<br>
+					Onboarded: <span id="date_onboarded" class="identity-data"></span>
+				</div>
+				
+				<h2>Real-time telemetry</h2>
+				
+				<div class="real-time-values">
+					<span class="rt-value" id="vel"></span> km/h<br>Speed 
+				</div>
+				
+				<div class="real-time-values">
+					<span class="rt-value" id="acc"></span> m/s2<br>Acceleration
+				</div>
+				
+				<div class="real-time-values">
+					<span class="rt-value" id="bra"></span> m/s2<br>Braking 
+				</div>
+				
+				<div class="real-time-values">
+					<span class="rt-value" id="cor"></span> m/s2<br>Cornering 
+				</div>
+				
+				<div class="real-time-coords-values">
+					<span class="rt-coords" id="lat"></span><br>Latitude
+				</div>
+				<div class="real-time-coords-values">
+					<span class="rt-coords" id="lon"></span><br>Longitude
+				</div>
+			</div>
+			
+			
+			<div class="map-container">
+				<div class="map" id="map"></div>
+			</div>
+			
+			<div class="container all-time-scores">
+			
+				<div class="scores">
+					<span class="global-score-text">Global score</span>
+					<br>
+					<span class="global-score-value" id="global-score"></span>
+					<br>
+					<br>
+					<span class="global-score-text">Total trips</span>
+					<br>
+					<span class="global-secondary-value" id="ntrips"></span>
+					<br>
+					<span class="global-score-text">Total driving time</span>
+					<br>
+					<span class="global-secondary-value" id="driving-time"></span>
+				</div>
+				
+				<div class="scores">
+					Acceleration score
+					<br>
+					<span class="score-value" id="acc-score"></span>
+					<br>
+					
+					<span class="score-text">Total harsh events</span>
+					<br>
+					<span class="secondary-value" id="acc-total-events"></span>
+					<br>
+					<span class="score-text">Daily harsh events</span>
+					<br>
+					<span class="secondary-value" id="acc-daily-events"></span>
+					<br>
+					<span class="score-text">Median intensity</span>
+					<br>
+					<span class="secondary-value" id="med-acc"></span>
+					<br>
+					<span class="score-text">Median speed</span>
+					<br>
+					<span class="secondary-value" id="acc-med-speed"></span>
+				</div>
+				
+				<div class="scores">
+					Braking score
+					<br>
+					<span class="score-value" id="bra-score"></span>
+					<br>
+					
+					<span class="score-text">Total harsh events</span>
+					<br>
+					<span class="secondary-value" id="bra-total-events"></span>
+					<br>
+					<span class="score-text">Daily harsh events</span>
+					<br>
+					<span class="secondary-value" id="bra-daily-events"></span>
+					<br>
+					<span class="score-text">Median intensity</span>
+					<br>
+					<span class="secondary-value" id="med-bra"></span>
+					<br>
+					<span class="score-text">Median speed</span>
+					<br>
+					<span class="secondary-value" id="bra-med-speed"></span>
+				</div>
+				
+				<div class="scores">
+					Cornering score
+					<br>
+					<span class="score-value" id="cor-score"></span>
+					<br>
+					
+					<span class="score-text">Total harsh events</span>
+					<br>
+					<span class="secondary-value" id="cor-total-events"></span>
+					<br>
+					<span class="score-text">Daily harsh events</span>
+					<br>
+					<span class="secondary-value" id="cor-daily-events"></span>
+					<br>
+					<span class="score-text">Median intensity</span>
+					<br>
+					<span class="secondary-value" id="med-cor"></span>
+					<br>
+					<span class="score-text">Median speed</span>
+					<br>
+					<span class="secondary-value" id="cor-med-speed"></span>
+				</div>
+				
+				<!--
+				<div class="scores">
+					Bump score: <span id="acc-score"></span>
+				</div>
+				-->
+				
+				<div class="scores">
+					Speeding score
+					<br>
+					<span class="score-value" id="vel-score"></span>
+					<br>
+					
+					<span class="score-text">Total time speeding</span>
+					<br>
+					<span class="secondary-value" id="ospeed_time"></span>
+					<br>
+					<span class="score-text">Mean over-speed</span>
+					<br>
+					<span class="secondary-value" id="ospeed_mean"></span>
+					<br>
+					<span class="score-text">Fatigue time speeding</span>
+					<br>
+					<span class="secondary-value" id="ospeed_fatigue"></span>
+				</div>
+				
+				<div class="scores">
+					Pacing score
+					<br>
+					<span class="score-value" id="pac-score"></span>
+					<br>
+					
+					<span class="score-text">Avg trip pacing index</span>
+					<br>
+					<span class="secondary-value" id="pacing_avg"></span>
+					<br>
+					<span class="score-text">Max trip pacing index</span>
+					<br>
+					<span class="secondary-value" id="pacing_max"></span>
+				</div>
+				
+				<div class="scores">
+					Fatigue score
+					<br>
+					<span class="score-value" id="fat-score"></span>
+					<br>
+					
+					<span class="score-text">Total fatigue time</span>
+					<br>
+					<span class="secondary-value" id="fatigue_time">0.0 min</span>
+					<br>
+					<span class="score-text">Daily fatigue time</span>
+					<br>
+					<span class="secondary-value" id="fatigue_time_day">0.0 min</span>
+				</div>
+			</div>
+			
+			
+			<div class="container messages">
+				<h2>Telemetry stream</h2>
+				<div class="auto-messages" id="msg">
+				</div>
+			</div>
+			
+			<div class="footer">
+			
+			</div>
+		</div>
+		
+		<!-- FIREBASE AUTH -->
+		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-auth.js"></script>
+		<script>
+			// Your web app's Firebase configuration
+			var firebaseConfig = {
+				apiKey: "AIzaSyDlKelcP_DpgXrzszC7q3NkmLdKbkeymJA",
+				authDomain: "aicare-dashboard-auth.firebaseapp.com",
+				databaseURL: "https://aicare-dashboard-auth.firebaseio.com",
+				projectId: "aicare-dashboard-auth",
+				storageBucket: "aicare-dashboard-auth.appspot.com",
+				messagingSenderId: "82787046355",
+				appId: "1:82787046355:web:98c7070fdb0179d5b21526"
+			};
+			// Initialize Firebase
+			firebase.initializeApp(firebaseConfig);
+			
+			///FIREBASE LISTENER
+			const auth = firebase.auth();
+			
+			auth.onAuthStateChanged(user => {
+				var dashb_elem = document.getElementById("dashboard-wrapper");
+				console.log(dashb_elem);
+				if(user){
+					dashb_elem.style.display='initial';
+					map.invalidateSize();
+					loadUserData(user);
+				}else{
+					window.location = "../login";
+					dashb_elem.style.display='none';
+				}
+			});
+			
+			//Logout
+			var logout_elem = document.getElementById("logout-button");
+			logout_elem.onclick = function(){
+				firebase.auth().signOut()
+				  .then(function() {
+				    console.log("Logout successful"); // Sign-out successful.
+				    window.location = "../login";
+				  })
+				  .catch(function(error) {
+				    console.log("Logout unsuccessful"); // error
+				  });
+							
+				return false;
+			}
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,238 @@
+{
+	"users": {
+		
+		"email-value": {
+			"name": "value",
+			"surname": "value",
+			"number_plates": {
+				"number_plate-value": {
+					"imei": "value",
+					"flespi_id": "value",
+					"policy_holder_given_name": "value",
+					"policy_holder_family_name": "value",
+					"vehicle_model": "value",
+					"date_onboarded": "value"
+				}
+			}
+		},
+
+		"xxxx@gmail.com": {
+			"name": "xxx",
+			"surname": "xxx",
+			"number_plates": {
+				"3359DPS": {
+					"imei": "35963xxxx532589",
+					"flespi_id": "866121",
+					"policy_holder_given_name": "xxxxx",
+					"policy_holder_family_name": "xxxxxx",
+					"vehicle_model": "Honda Civic",
+					"date_onboarded": "22/07/2020"
+				},
+
+				"KAS960P": {
+					"imei": "35963xxx442045",
+					"flespi_id": "831573",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxxx",
+					"vehicle_model": "Toyota Sprinter DX",
+					"date_onboarded": "22/05/2020"
+				},
+
+				"KCT630A": {
+					"imei": "35963xxxx86903",
+					"flespi_id": "874813",
+					"policy_holder_given_name": "xxxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Mazda Demio",
+					"date_onboarded": "26/05/2020"
+				},
+
+				"KCN452W": {
+					"imei": "35963xxxx3303",
+					"flespi_id": "874829",
+					"policy_holder_given_name": "xxxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Nissan Tiida",
+					"date_onboarded": "29/05/2020"
+				}
+			}
+		},
+
+		"xxxxxxx@gmail.com": {
+			"name": "xxxx",
+			"surname": "xxx",
+			"number_plates": {
+				"3359DPS": {
+					"imei": "35963xxxx532589",
+					"flespi_id": "866121",
+					"policy_holder_given_name": "xxx",
+					"policy_holder_family_name": "xxxxx",
+					"vehicle_model": "Honda Civic",
+					"date_onboarded": "22/07/2020"
+				},
+
+				"KAS960P": {
+					"imei": "35963xxx2045",
+					"flespi_id": "831573",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Toyota Sprinter DX",
+					"date_onboarded": "22/05/2020"
+				},
+
+				"KCT630A": {
+					"imei": "359xxxx86903",
+					"flespi_id": "874813",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxxx",
+					"vehicle_model": "Mazda Demio",
+					"date_onboarded": "26/05/2020"
+				},
+
+				"KCN452W": {
+					"imei": "359xxxx503303",
+					"flespi_id": "874829",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Nissan Tiida",
+					"date_onboarded": "29/05/2020"
+				}
+			}
+		},
+
+		"xxxx@xxgroup": {
+			"name": "xxxx",
+			"surname": "xxxxx",
+			"number_plates": {
+				"3359DPS": {
+					"imei": "3596331xxx32589",
+					"flespi_id": "866121",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Honda Civic",
+					"date_onboarded": "22/07/2020"
+				},
+
+				"KAS960P": {
+					"imei": "35963xxxx42045",
+					"flespi_id": "831573",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Toyota Sprinter DX",
+					"date_onboarded": "22/05/2020"
+				},
+
+				"KCT630A": {
+					"imei": "35963xxxxx903",
+					"flespi_id": "874813",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Mazda Demio",
+					"date_onboarded": "26/05/2020"
+				},
+
+				"KCN452W": {
+					"imei": "3596xxxx3303",
+					"flespi_id": "874829",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxxxxx",
+					"vehicle_model": "Nissan Tiida",
+					"date_onboarded": "29/05/2020"
+				}
+			}
+		},
+		
+		"xxxx@aicare.co.ke": {
+			"name": "xxxx",
+			"surname": "xxxxx",
+			"number_plates": {
+				"3359DPS": {
+					"imei": "35963xxxx32589",
+					"flespi_id": "866121",
+					"policy_holder_given_name": "xxx",
+					"policy_holder_family_name": "xxxx",
+					"vehicle_model": "Honda Civic",
+					"date_onboarded": "22/07/2020"
+				}
+			}
+		},
+		
+		"xxxx@outlook.com": {
+			"name": "xxx",
+			"surname": "xxxx",
+			"number_plates": {
+				"KAS960P": {
+					"imei": "35963xxxx2045",
+					"flespi_id": "831573",
+					"policy_holder_given_name": "xxx",
+					"policy_holder_family_name": "xxx",
+					"vehicle_model": "Toyota Sprinter DX",
+					"date_onboarded": "22/05/2020"
+				}
+			}
+		},
+		
+		"xxxx@gmail.com": {
+			"name": "xxx",
+			"surname": "xxxx",
+			"number_plates": {
+				"KCN452W": {
+					"imei": "3596xxx503303",
+					"flespi_id": "874829",
+					"policy_holder_given_name": "xxxxx",
+					"policy_holder_family_name": "xxxxx",
+					"vehicle_model": "Nissan Tiida",
+					"date_onboarded": "29/05/2020"
+				}
+			}
+		},
+		
+		"xxxx@takafulafrica.co.ke": {
+			"name": "xxx",
+			"surname": "xxxx",
+			"number_plates": {
+				"3359DPS": {
+					"imei": "3596xxx2589",
+					"flespi_id": "866121",
+					"policy_holder_given_name": "xxxx",
+					"policy_holder_family_name": "xxx",
+					"vehicle_model": "Honda Civic",
+					"date_onboarded": "22/07/2020"
+				}
+			}
+		}
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
