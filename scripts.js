@@ -73,7 +73,7 @@ async function getACL(){
 	console.log("flespi_ids.toString() --> " + flespi_ids.toString());
 	const data = '[{"access":{"acl":[{"methods":["GET"],"submodules":[{"methods":["GET"],"name":"telemetry"}],"uri":"gw/devices","ids":[' + flespi_ids.toString() + ']}],"type":2},"info":"user-acl-dashboard","ttl":600}]';
 	const messages_request_url = "https://flespi.io/platform/customer/tokens" + "?data=" + encodeURIComponent(data);
-	const mydata = {'headers': {'Authorization': 'FlespiToken lQFuoXRyIYVl1N1Okgj4sChiH5iJwo5I3y2hlHDRwp3l0SYaZ54hw9n32wDpKyXD'}, 'method': 'POST', 'fields':['id','key']};
+	const mydata = {'headers': {'Authorization': 'FlespiToken lQFuoxxxxxxxxxxxxxxx2wDpKyXD'}, 'method': 'POST', 'fields':['id','key']};
 	const response = await fetch(messages_request_url, mydata);
 	const json_resp = await response.json();
 	console.log(json_resp);
@@ -337,7 +337,7 @@ function init_polyline(){
 	polyline.addTo(map);
 }
 
-// I´m not really sure when i should use async / await ... This needs to be revised
+// IÂ´m not really sure when i should use async / await ... This needs to be revised
 async function fetch_vehicle_data(imei){
 	await fetch('scores/' + imei + '.json', {cache: "reload"})
 		  .then((resp) => resp.json()) // Transform the data into json
